@@ -1,0 +1,14 @@
+{
+  "name": "pruebanpm",
+  "version": "1.0.0",
+  "description": "prueba de proyecto npm",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "gbrl",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
+}
