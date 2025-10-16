@@ -21,17 +21,33 @@ let llibre3 = new Llibre({
   preu: 8.95,
 });
 
-llibre2
-  .save()
-  .then((r) => {
-    console.log(r);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+// llibre2
+//   .save()
+//   .then((r) => {
+//     console.log(r);
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
 
-llibre3
-  .save()
+// llibre3
+//   .save()
+//   .then((r) => {
+//     console.log(r);
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
+
+// Llibre.find({ preu: { $gte: 10, $lte: 20 } })
+//   .then((r) => {
+//     console.log(r);
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
+
+Llibre.findById("68f0c8e52d4c729e5543d254")
   .then((r) => {
     console.log(r);
   })
