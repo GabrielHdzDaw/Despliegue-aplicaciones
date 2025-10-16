@@ -22,4 +22,4 @@ const contactoSchema = new mongoose.Schema({
   },
 });
 
-export const contacto = mongoose.model("contactos", contactoSchema);
+export const Contacto = mongoose.model("contactos", contactoSchema);
