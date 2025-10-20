@@ -47,10 +47,26 @@ let llibre3 = new Llibre({
 //     console.log(err);
 //   });
 
-Llibre.findById("68f0c8e52d4c729e5543d254")
+// Llibre.findById("68f0c8e52d4c729e5543d254")
+//   .then((r) => {
+//     console.log(r);
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
+
+// Llibre.findByIdAndDelete("68f0c8e52d4c729e5543d254")
+//   .then((r) => {
+//     console.log("Eliminado:", r);
+//   })
+//   .catch((err) => {
+//     console.log("Error:", err);
+//   });
+
+Llibre.findByIdAndUpdate("68f0c991d51c72eb07e06db9", { preu: 12313, titol: "Mamamama" }, { new: true, runValidators: true })
   .then((r) => {
-    console.log(r);
+    console.log("Modificat: ", r);
   })
   .catch((err) => {
-    console.log(err);
+    console.log("Error", err);
   });
