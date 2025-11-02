@@ -12,4 +12,6 @@ const autorsSchema = new mongoose.Schema({
   },
 });
 
+
+
 export const Autor = mongoose.model("autors", autorsSchema);

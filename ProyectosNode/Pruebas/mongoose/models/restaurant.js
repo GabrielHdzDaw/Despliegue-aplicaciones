@@ -1,3 +1,5 @@
+import mongoose, { mongo } from "mongoose";
+
 let restaurantSchema = new mongoose.Schema({
     nom: {
         type: String,

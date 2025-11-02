@@ -1,7 +1,5 @@
 import { mongoose } from "mongoose";
-import { Contacto } from "./models/contacto.js";
-import { Restaurant } from "./models/restaurant.js";
-import { Mascota } from "./models/mascota.js";
+import { Contacto, Restaurant, Mascota} from "./models/contacto.js";
 
 mongoose.connect("mongodb://localhost:27017/contactos");
 
@@ -38,6 +36,15 @@ mascota1
     console.log(err);
   });
 
+  mascota2
+  .save()
+  .then((r) => {
+    console.log("Mascota guardat:", r);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
 async function guardarContacteAmbRelacions() {
   try {
     // Guardar restaurant i mascotes en paral·lel
@@ -50,7 +57,7 @@ async function guardarContacteAmbRelacions() {
     // Crear i guardar el contacte una vegada que les insercions anteriors hagen finalitzat
     let contacte1 = new Contacto({
       nom: "Nacho",
-      telefon: 677889900,
+      telefon: 111111111,
       edat: 40,
       restaurantFavorit: restaurantGuardat._id, // Referència al _id del restaurant guardat
       mascotes: [mascotaGuardada1._id, mascotaGuardada2._id], // Referència als _id de las mascotes guardades
@@ -62,3 +69,5 @@ async function guardarContacteAmbRelacions() {
     console.error("Error en el procés d'inserció:", error);
   }
 }
+
+guardarContacteAmbRelacions();

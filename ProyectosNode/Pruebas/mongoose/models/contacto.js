@@ -1,6 +1,6 @@
 import { mongoose } from "mongoose";
 
-let mascotaSchema = new mongoose.Schema({
+export const mascotaSchema = new mongoose.Schema({
   nom: {
     type: String,
     required: true,
@@ -14,7 +14,7 @@ let mascotaSchema = new mongoose.Schema({
   },
 });
 
-let restaurantSchema = new mongoose.Schema({
+export const restaurantSchema = new mongoose.Schema({
   nom: {
     type: String,
     required: true,
@@ -36,7 +36,7 @@ let restaurantSchema = new mongoose.Schema({
   },
 });
 
-const contactoSchema = new mongoose.Schema({
+export const contactoSchema = new mongoose.Schema({
   nombre: {
     type: String,
     required: true,
@@ -61,3 +61,5 @@ const contactoSchema = new mongoose.Schema({
 });
 
 export const Contacto = mongoose.model("contactos", contactoSchema);
+export const Restaurant = mongoose.model("restaurant", restaurantSchema);
+export const Mascota = mongoose.model("Mascota", mascotaSchema);
