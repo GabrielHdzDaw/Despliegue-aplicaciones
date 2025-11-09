@@ -1,5 +1,5 @@
 {
-  "name": "BasketLeagueManager",
+  "name": "basket_league_manager",
   "version": "1.0.0",
   "description": " Práctica 1: Desarrollo de una API REST para la gestión de ligas de baloncesto con Express y Mongoose",
   "main": "index.js",
@@ -10,8 +10,8 @@
   "author": "Gabriel Hernández Collado",
   "license": "ISC",
   "dependencies": {
-    
     "express": "^5.1.0",
-    "mongo": "^0.1.0"
+    "mongo": "^0.1.0",
+    "mongoose": "^8.19.3"
   }
 }
