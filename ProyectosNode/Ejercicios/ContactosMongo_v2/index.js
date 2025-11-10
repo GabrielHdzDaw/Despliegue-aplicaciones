@@ -25,4 +25,18 @@ app.get("/contactos", (req, res) => {
     });
 });
 
+app.get("/contactos/:id", (req, res) => {
+  Contacto.findById(req.params.id)
+    .then((resultado) => {
+      if (resultado) {
+        res.status(200).send({ ok: true, resultado: resultado });
+      } else {
+        res.status(400).send({ ok: false, error: "No se han encontrado datos" });
+      }
+    })
+    .catch((error) => {
+      res.status(500).send({ ok: false, error: "Error obteniendo contactos" });
+    });
+});
+
 app.listen(8080);
