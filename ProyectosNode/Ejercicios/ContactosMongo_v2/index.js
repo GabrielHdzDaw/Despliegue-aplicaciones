@@ -14,6 +14,7 @@ import { Mascota } from "./models/mascota.js";
 mongoose.connect("mongodb://127.0.0.1:27017/contactos");
 
 const app = e();
+app.use(e.json);
 
 app.get("/contactos", (req, res) => {
   Contacto.find()
@@ -38,5 +39,9 @@ app.get("/contactos/:id", (req, res) => {
       res.status(500).send({ ok: false, error: "Error obteniendo contactos" });
     });
 });
+
+app.post("/contactos", (req, res) =>{
+  Contacto
+})
 
 app.listen(8080);
