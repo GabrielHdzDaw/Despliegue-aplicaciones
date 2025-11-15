@@ -31,4 +31,4 @@ const tournamentSchema = new Schema({
 
 tournamentSchema.index({ title: 1, year: 1, season: 1 }, { unique: true });
 
-export const teams = model("tournaments", tournamentSchema);
+export const Tournament = model("tournaments", tournamentSchema);

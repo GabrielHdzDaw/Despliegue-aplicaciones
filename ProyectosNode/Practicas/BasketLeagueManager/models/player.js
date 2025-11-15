@@ -30,4 +30,6 @@ const playerSchema = new Schema({
   },
 });
 
+
+
 export const Player = model("players", playerSchema);

@@ -2,11 +2,11 @@ import { Schema, model } from "mongoose";
 
 const playerStatsSchema = new Schema({
   player: {
-    type: Schema.type.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "players",
   },
   team: {
-    type: Schema.type.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "teams",
   },
   points: {
@@ -31,9 +31,10 @@ const playerStatsSchema = new Schema({
 
 const matchSchema = new Schema({
   tournament: {
-    type: Schema.Types.ObjectId,
-    ref: "tournaments",
+    type: String,
     required: true,
+    minlength: 3,
+    maxlength: 100,
   },
   date: {
     type: Date,
@@ -82,8 +83,7 @@ const matchSchema = new Schema({
   },
 
   playerStats: {
-    type: [Schema.type.ObjectId],
-    ref: "playerStats",
+    type: [playerStatsSchema], // Usa el esquema embebido
   },
 });
 
