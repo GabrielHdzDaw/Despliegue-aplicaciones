@@ -1,5 +1,6 @@
 import e from "express";
 import { Team } from "../models/team.js";
+import { Player } from "../models/player.js";
 
 const router = e.Router();
 
@@ -28,4 +29,77 @@ router.get("/:id", async (req, res) => {
     return res.status(500).send({ ok: false, result: `Internal server error: ${err.message}` });
   }
 });
+
+// Add a team
+router.post("/", async (req, res) => {
+  try {
+    const { name } = req.body;
+    if (!name) {
+      return res.status(400).send({ ok: false, result: "Missing required fields: name" });
+    }
+    const existingTeam = await Team.findOne({ name });
+    if (existingTeam) {
+      return res.status(400).send({ ok: false, result: "Team with this name already exists" });
+    }
+    const newTeam = new Team(req.body);
+    const savedTeam = newTeam.save();
+
+    res.status(201).send({ ok: true, result: savedTeam });
+  } catch (err) {
+    res.status(500).send({ ok: false, result: `Internal server error: ${err.message}` });
+  }
+});
+
+// Add a player to roster
+router.post("/:id/roster", async (req, res) => {
+  try {
+    const { player, joinDate, active } = req.body;
+    if (!player || !joinDate || !active || active === undefined) {
+      return res.status(400).send({ ok: false, result: "Missing required fields" });
+    }
+    const team = await Team.findById(req.params.id).populate("roster.player");
+    if (!team) {
+      return res.status(404).send({ ok: false, result: "Team not found" });
+    }
+    const existingPlayer = await Player.findById(player);
+    if (!existingPlayer) {
+      return res.status(404).send({ ok: false, result: "Player not found" });
+    }
+    const activeInOtherTeam = await Team.findOne({ "roster.player": player, "roster.active": true });
+    if (activeInOtherTeam) {
+      return res.status(400).send({ ok: false, result: "Player is already active in another team" });
+    }
+    const activeInThisTeam = team.roster.find((p) => p.id.toString() === player.toString() && p.active);
+    if (activeInThisTeam) {
+      return res.status(400).send({ ok: false, result: "Player is already active in this team" });
+    }
+    team.roster.push({ player, joinDate, active });
+    const updatedTeam = await team.save();
+
+    const populatedTeam = await Team.findById(req.params.id).populate("roster.player");
+    res.status(200).send({ ok: true, result: populatedTeam });
+  } catch (err) {
+    res.status(500).send({ ok: false, result: `Internal server error: ${err.message}` });
+  }
+});
+
+//Deactivate a player
+router.delete("/:id/roster/:playerId", async (req, res) => {
+  const existingPlayer = await Player.findById(req.params.playerId);
+  if (!existingPlayer) {
+    return res.status(404).send({ ok: false, result: "Player not found" });
+  }
+  const team = await Team.findById(req.params.id).populate("roster.player");
+  if (!team) {
+    return res.status(404).send({ ok: false, result: "Team not found" });
+  }
+  const activeInThisTeam = team.roster.find((p) => p.id.toString() === existingPlayer.id.toString() && p.active);
+  if (!activeInThisTeam) {
+    return res.status(404).send({ ok: false, result: "Player's not active on team roster" });
+  }
+  activeInThisTeam.active = false;
+  const updatedteam = await team.save();
+  res.status(200).send({ ok: true, result: updatedteam });
+});
+
 export default router;
