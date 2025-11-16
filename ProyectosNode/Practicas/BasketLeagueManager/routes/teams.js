@@ -1,6 +1,7 @@
 import e from "express";
 import { Team } from "../models/team.js";
 import { Player } from "../models/player.js";
+import { Match } from "../models/match.js";
 
 const router = e.Router();
 
@@ -69,7 +70,7 @@ router.post("/:id/roster", async (req, res) => {
     if (activeInOtherTeam) {
       return res.status(400).send({ ok: false, result: "Player is already active in another team" });
     }
-    const activeInThisTeam = team.roster.find((p) => p.id.toString() === player.toString() && p.active);
+    const activeInThisTeam = team.roster.find((p) => p.player.toString() === player.toString() && p.active);
     if (activeInThisTeam) {
       return res.status(400).send({ ok: false, result: "Player is already active in this team" });
     }
@@ -85,21 +86,42 @@ router.post("/:id/roster", async (req, res) => {
 
 //Deactivate a player
 router.delete("/:id/roster/:playerId", async (req, res) => {
-  const existingPlayer = await Player.findById(req.params.playerId);
-  if (!existingPlayer) {
-    return res.status(404).send({ ok: false, result: "Player not found" });
+  try {
+    const existingPlayer = await Player.findById(req.params.playerId);
+    if (!existingPlayer) {
+      return res.status(404).send({ ok: false, result: "Player not found" });
+    }
+
+    const team = await Team.findById(req.params.id).populate("roster.player");
+    if (!team) {
+      return res.status(404).send({ ok: false, result: "Team not found" });
+    }
+
+    const activeInThisTeam = team.roster.find((p) => p.player._id.toString() === req.params.playerId && p.active);
+    if (!activeInThisTeam) {
+      return res.status(404).send({ ok: false, result: "Player is not active in this team's roster" });
+    }
+
+    activeInThisTeam.active = false;
+
+    const updatedTeam = await team.save();
+
+    return res.status(200).send({ ok: true, result: updatedTeam });
+  } catch (err) {
+    return res.status(500).send({ ok: false, result: `Internal server error: ${err.message}` });
   }
-  const team = await Team.findById(req.params.id).populate("roster.player");
-  if (!team) {
-    return res.status(404).send({ ok: false, result: "Team not found" });
+});
+
+//Delete a team
+router.delete("/:id", async (req, res) => {
+  const team = await Team.findById(req.params.id);
+  if(!team){
+    return res.status(404)
   }
-  const activeInThisTeam = team.roster.find((p) => p.id.toString() === existingPlayer.id.toString() && p.active);
-  if (!activeInThisTeam) {
-    return res.status(404).send({ ok: false, result: "Player's not active on team roster" });
+  const appearsAtMatch = Match.findOne({ homeTeam: req.params.id, awayTeam: req.params.id });
+  if (appearsAtMatch) {
+    return res.status(400).send({ ok: false, result: "Team has associated matches" });
   }
-  activeInThisTeam.active = false;
-  const updatedteam = await team.save();
-  res.status(200).send({ ok: true, result: updatedteam });
 });
 
 export default router;

@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import playersRouter from "./routes/players.js";
 import teamsRouter from "./routes/teams.js";
 import matchesRouter from "./routes/matches.js";
+import teapotRouter from "./routes/teapot.js";
 
 mongoose
   .connect("mongodb://localhost:27017/basketleaguemanager")
@@ -13,7 +14,6 @@ mongoose
     console.log(err);
   });
 
-
 const app = e();
 
 app.use(e.json());
@@ -21,6 +21,7 @@ app.use(e.json());
 app.use("/players", playersRouter);
 app.use("/teams", teamsRouter);
 app.use("/matches", matchesRouter);
+app.use("/teapot", teapotRouter);
 
 const PORT = 8080;
 app.listen(PORT, () => {
