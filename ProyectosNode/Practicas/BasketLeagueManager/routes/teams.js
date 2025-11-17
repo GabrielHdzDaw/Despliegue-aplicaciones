@@ -106,21 +106,28 @@ router.delete("/:id/roster/:playerId", async (req, res) => {
 
     const updatedTeam = await team.save();
 
-    return res.status(200).send({ ok: true, result: updatedTeam });
+    res.status(200).send({ ok: true, result: updatedTeam });
   } catch (err) {
-    return res.status(500).send({ ok: false, result: `Internal server error: ${err.message}` });
+    res.status(500).send({ ok: false, result: `Internal server error: ${err.message}` });
   }
 });
 
 //Delete a team
 router.delete("/:id", async (req, res) => {
-  const team = await Team.findById(req.params.id);
-  if(!team){
-    return res.status(404)
-  }
-  const appearsAtMatch = Match.findOne({ homeTeam: req.params.id, awayTeam: req.params.id });
-  if (appearsAtMatch) {
-    return res.status(400).send({ ok: false, result: "Team has associated matches" });
+  try {
+    const appearsAtMatchAsHomeTeam = await Match.findOne({ homeTeam: req.params.id });
+    const appearsAtMatchAsAwayTeam = await Match.findOne({ awayTeam: req.params.id });
+    if (appearsAtMatchAsHomeTeam || appearsAtMatchAsAwayTeam) {
+      return res.status(400).send({ ok: false, result: "Team has associated matches" });
+    }
+
+    const team = await Team.findByIdAndDelete(req.params.id);
+    if (!team) {
+      return res.status(404).send({ ok: false, result: "Team not found" });
+    }
+    res.status(200).send({ ok: true, result: team });
+  } catch (err) {
+    res.status(500).send({ ok: false, result: `Internal server error: ${err}` });
   }
 });
 
