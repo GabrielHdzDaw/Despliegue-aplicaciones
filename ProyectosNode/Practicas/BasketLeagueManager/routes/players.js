@@ -4,6 +4,12 @@ import { Team } from "../models/team.js";
 
 const router = e.Router();
 
+router.use((req, res, next) =>{
+  console.log("Petition from: ", req.ip, "to Players");
+  next();
+})
+
+
 // Obtain all players
 router.get("/", async (req, res) => {
   try {

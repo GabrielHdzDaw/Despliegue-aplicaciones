@@ -16,6 +16,8 @@ mongoose.connect("mongodb://127.0.0.1:27017/contactos");
 const app = e();
 app.use(e.json);
 
+
+
 app.get("/contactos", (req, res) => {
   Contacto.find()
     .then((resultado) => {

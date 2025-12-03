@@ -1,0 +1,242 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "Contactos",
+    "dateExported": "2023-07-18T09:07:47.993Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "2fc8873d-6354-47a5-b9b0-88bbe1201d37",
+            "colId": "24dc0ca4-05dd-4e87-a840-64e354613ed1",
+            "containerId": "",
+            "name": "GET /contactos",
+            "url": "localhost:8080/contactos",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-07-18T08:55:54.259Z",
+            "modified": "2023-07-18T08:55:54.259Z",
+            "headers": []
+        },
+        {
+            "_id": "3d59d918-a192-4706-906d-dae1d012556b",
+            "colId": "24dc0ca4-05dd-4e87-a840-64e354613ed1",
+            "containerId": "",
+            "name": "GET /contactos/:id",
+            "url": "localhost:8080/contactos/5a56a4d5b405560371f26c8f",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-07-18T08:55:54.260Z",
+            "modified": "2023-07-18T08:55:54.260Z",
+            "headers": []
+        },
+        {
+            "_id": "b9d5539e-35d3-4953-9ef0-61bf44e877e1",
+            "colId": "24dc0ca4-05dd-4e87-a840-64e354613ed1",
+            "containerId": "",
+            "name": "POST /contactos",
+            "url": "localhost:8080/contactos",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-07-18T08:55:54.261Z",
+            "modified": "2023-07-18T09:05:27.638Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\"nombre\":\"Juan Perez\", \"telefono\":\"112233445\", \"edad\":23}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6ImFsZXgiLCJpYXQiOjE2ODk2NzExMTQsImV4cCI6MTY4OTY3ODMxNH0.Cw5QBGzBeIZXqIQxeEfDodvJC9MFeMwHQimsWeoOZmQ"
+            },
+            "tests": []
+        },
+        {
+            "_id": "8e4d35f8-f87a-47c2-ac48-010a70e0fd63",
+            "colId": "24dc0ca4-05dd-4e87-a840-64e354613ed1",
+            "containerId": "",
+            "name": "PUT /contactos/:id",
+            "url": "localhost:8080/contactos/5aba2b89dbc31904c4856a0e",
+            "method": "PUT",
+            "sortNum": 40000,
+            "created": "2023-07-18T08:55:54.262Z",
+            "modified": "2023-07-18T09:05:34.444Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\"nombre\":\"Juan Perez Jiménez\", \"telefono\": \"112233445\", \"edad\":24}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6ImFsZXgiLCJpYXQiOjE2ODk2NzExMTQsImV4cCI6MTY4OTY3ODMxNH0.Cw5QBGzBeIZXqIQxeEfDodvJC9MFeMwHQimsWeoOZmQ"
+            },
+            "tests": []
+        },
+        {
+            "_id": "b67c6a04-e8f0-48b4-a057-c4381d96db0d",
+            "colId": "24dc0ca4-05dd-4e87-a840-64e354613ed1",
+            "containerId": "",
+            "name": "DELETE /contactos/:id",
+            "url": "localhost:8080/contactos/64b655d8a10bb87a71ed3a15",
+            "method": "DELETE",
+            "sortNum": 50000,
+            "created": "2023-07-18T08:55:54.263Z",
+            "modified": "2023-07-18T09:05:52.640Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6ImFsZXgiLCJpYXQiOjE2ODk2NzExMTQsImV4cCI6MTY4OTY3ODMxNH0.Cw5QBGzBeIZXqIQxeEfDodvJC9MFeMwHQimsWeoOZmQ"
+            },
+            "tests": []
+        },
+        {
+            "_id": "424bff42-7302-4153-a438-bb1582fb5f38",
+            "colId": "24dc0ca4-05dd-4e87-a840-64e354613ed1",
+            "containerId": "",
+            "name": "GET /restaurantes",
+            "url": "localhost:8080/restaurantes",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2023-07-18T08:55:54.265Z",
+            "modified": "2023-07-18T08:55:54.265Z",
+            "headers": []
+        },
+        {
+            "_id": "be85703b-a071-4395-9791-08b273b3eabb",
+            "colId": "24dc0ca4-05dd-4e87-a840-64e354613ed1",
+            "containerId": "",
+            "name": "POST /restaurantes",
+            "url": "localhost:8080/restaurantes",
+            "method": "POST",
+            "sortNum": 70000,
+            "created": "2023-07-18T08:55:54.266Z",
+            "modified": "2023-07-18T09:06:09.318Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\"nombre\": \"Vips\", \"direccion\": \"C/ Restaurantes\", \"telefono\": \"112233445\"}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6ImFsZXgiLCJpYXQiOjE2ODk2NzExMTQsImV4cCI6MTY4OTY3ODMxNH0.Cw5QBGzBeIZXqIQxeEfDodvJC9MFeMwHQimsWeoOZmQ"
+            },
+            "tests": []
+        },
+        {
+            "_id": "f2b6b967-85ef-41bb-99d4-67bf91f5b1eb",
+            "colId": "24dc0ca4-05dd-4e87-a840-64e354613ed1",
+            "containerId": "",
+            "name": "DELETE /restaurantes",
+            "url": "localhost:8080/restaurantes/5d7ac64ba29712144a3489b5",
+            "method": "DELETE",
+            "sortNum": 80000,
+            "created": "2023-07-18T08:55:54.267Z",
+            "modified": "2023-07-18T09:06:15.444Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6ImFsZXgiLCJpYXQiOjE2ODk2NzExMTQsImV4cCI6MTY4OTY3ODMxNH0.Cw5QBGzBeIZXqIQxeEfDodvJC9MFeMwHQimsWeoOZmQ"
+            },
+            "tests": []
+        },
+        {
+            "_id": "71b5eeea-e795-475f-9959-352b20f51438",
+            "colId": "24dc0ca4-05dd-4e87-a840-64e354613ed1",
+            "containerId": "",
+            "name": "GET /mascotas",
+            "url": "localhost:8080/mascotas",
+            "method": "GET",
+            "sortNum": 90000,
+            "created": "2023-07-18T08:55:54.268Z",
+            "modified": "2023-07-18T08:55:54.268Z",
+            "headers": []
+        },
+        {
+            "_id": "2ba1dba4-03b5-4795-a996-df4f9462499f",
+            "colId": "24dc0ca4-05dd-4e87-a840-64e354613ed1",
+            "containerId": "",
+            "name": "POST /mascotas",
+            "url": "localhost:8080/mascotas",
+            "method": "POST",
+            "sortNum": 100000,
+            "created": "2023-07-18T08:55:54.269Z",
+            "modified": "2023-07-18T09:06:23.116Z",
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\"nombre\":\"Nora\", \"tipo\":\"perro\"}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6ImFsZXgiLCJpYXQiOjE2ODk2NzExMTQsImV4cCI6MTY4OTY3ODMxNH0.Cw5QBGzBeIZXqIQxeEfDodvJC9MFeMwHQimsWeoOZmQ"
+            },
+            "tests": []
+        },
+        {
+            "_id": "280cd37d-1b5d-4b1e-8ed2-ffe8388bff03",
+            "colId": "24dc0ca4-05dd-4e87-a840-64e354613ed1",
+            "containerId": "",
+            "name": "DELETE /mascotas",
+            "url": "localhost:8080/mascotas/5d6ae5fb43dde60e191073fa",
+            "method": "DELETE",
+            "sortNum": 110000,
+            "created": "2023-07-18T08:55:54.270Z",
+            "modified": "2023-07-18T09:06:27.610Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6ImFsZXgiLCJpYXQiOjE2ODk2NzExMTQsImV4cCI6MTY4OTY3ODMxNH0.Cw5QBGzBeIZXqIQxeEfDodvJC9MFeMwHQimsWeoOZmQ"
+            },
+            "tests": []
+        },
+        {
+            "_id": "75755a94-4d05-4447-aba7-f803bdb03873",
+            "colId": "24dc0ca4-05dd-4e87-a840-64e354613ed1",
+            "containerId": "",
+            "name": "POST /login",
+            "url": "localhost:8080/auth/login",
+            "method": "POST",
+            "sortNum": 120000,
+            "created": "2023-07-18T08:56:08.311Z",
+            "modified": "2023-07-18T09:05:13.944Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\"usuario\":\"alex\", \"password\":\"alex111\"}",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}

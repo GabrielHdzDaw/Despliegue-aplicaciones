@@ -1,0 +1,118 @@
+{
+	"info": {
+		"_postman_id": "4c36a2df-ac82-4d1f-8469-ed9a9f27185c",
+		"name": "PruebasToken",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET /",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /protegido",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6InBlcGUiLCJyb2wiOiJub3JtYWwiLCJpYXQiOjE1NzA3OTAxMTgsImV4cCI6MTU3MDc5NzMxOH0.KI11oLWle4aN_PnMViD9OV1YQvfXBVyzMJkWEzd-Ei0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/protegido",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"protegido"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /protegidoAdmin",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6Im5hY2hvIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE1NzA3OTAxNjIsImV4cCI6MTU3MDc5NzM2Mn0.W5owoSscpu1itDTfFfXHE_9Amx2K1PVvEc-8C9e6U4k",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/protegidoAdmin",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"protegidoAdmin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"usuario\":\"nacho\", \"password\":\"12345\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
