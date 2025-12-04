@@ -9,11 +9,11 @@ router.get("/", async (req, res) => {
   try {
     const players = await Player.find();
     if (!players) {
-      return res.status(404).send({ ok: false, result: "Players not found" });
+      return res.status(404).send({ error: "Players not found", result: null });
     }
-    return res.status(200).send({ ok: true, result: players });
+    return res.status(200).send({ error: null, result: players });
   } catch (err) {
-    return res.status(500).send({ ok: false, result: `Internal server error: ${err.message}` });
+    res.status(500).send({ error: `Internal server error: ${err.message}`, result: null });
   }
 });
 
@@ -21,15 +21,15 @@ router.get("/", async (req, res) => {
 router.get("/find", async (req, res) => {
   try {
     if (!req.query.name) {
-      return res.status(400).send({ ok: false, result: "Missing search paramenter: name" });
+      return res.status(400).send({ error: "Missing search parameter: name", result: null });
     }
     const player = await Player.findOne({ name: { $regex: req.query.name, $options: "i" } });
     if (!player) {
-      return res.status(404).send({ ok: false, result: "Player not found" });
+      return res.status(404).send({ error: "Player not found", result: null });
     }
-    return res.status(200).send({ ok: true, result: player });
+    return res.status(200).send({ error: null, result: player });
   } catch (err) {
-    return res.status(500).send({ ok: false, result: err.message });
+    return res.status(500).send({ error: `Internal server error: ${err.message}`, result: null });
   }
 });
 
@@ -38,11 +38,11 @@ router.get("/:id", async (req, res) => {
   try {
     const player = await Player.findById(req.params.id);
     if (!player) {
-      return res.status(404).send({ ok: false, result: "Player not found" });
+      return res.status(404).send({ error: "Player not found", result: null });
     }
-    return res.status(200).send({ ok: true, result: player });
+    return res.status(200).send({ error: null, result: player });
   } catch (err) {
-    return res.status(500).send({ ok: false, result: `Internal server error: ${err.message}` });
+    return res.status(500).send({ error: `Internal server error: ${err.message}`, result: null });
   }
 });
 
@@ -51,18 +51,18 @@ router.post("/", async (req, res) => {
   try {
     const { name, nickname, country, birthDate, role } = req.body;
     if (!name || !nickname || !country || !birthDate || !role) {
-      return res.status(400).send({ ok: false, result: "Missing required fields" });
+      return res.status(400).send({ error: "Missing required fields", result: null });
     }
     const existingPlayer = await Player.findOne({ nickname });
     if (existingPlayer) {
-      return res.status(400).send({ ok: false, result: "Player with this nickname already exists" });
+      return res.status(400).send({ error: "Player with this nickname already exists", result: null });
     }
     const newPlayer = new Player(req.body);
-    const savedPlayer = newPlayer.save();
+    const savedPlayer = await new Player(req.body).save();
 
-    res.status(201).send({ ok: true, result: savedPlayer });
+    res.status(201).send({ error: null, result: savedPlayer });
   } catch (err) {
-    res.status(500).send({ ok: false, result: `Internal server error: ${err.message}` });
+    res.status(500).send({ error: `Internal server error: ${err.message}`, result: null });
   }
 });
 
@@ -71,21 +71,21 @@ router.put("/:id", async (req, res) => {
   try {
     const player = await Player.findById(req.params.id);
     if (!player) {
-      return res.status(404).send({ ok: false, result: "Player not found" });
+      return res.status(404).send({ error: "Player not found", result: null });
     }
     const { nickname } = req.body;
     const existingPlayer = await Player.findOne({ nickname });
     if (existingPlayer) {
-      return res.status(400).send({ ok: false, result: "Player with this nickname already exists" });
+      return res.status(400).send({ error: "Player with this nickname already exists", result: null });
     }
     const updatedPlayer = await Player.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true,
     });
 
-    res.status(200).send({ ok: true, result: updatedPlayer });
+    res.status(200).send({ error: null, result: updatedPlayer });
   } catch (err) {
-    res.status(500).send({ ok: false, result: `Internal server error: ${err.message}` });
+    res.status(500).send({ error: `Internal server error: ${err.message}`, result: null });
   }
 });
 
@@ -94,15 +94,15 @@ router.delete("/:id", async (req, res) => {
   try {
     const activeInTeam = await Team.findOne({ "roster.player": req.params.id, "roster.active": true });
     if (activeInTeam) {
-      return res.status(400).send({ ok: false, result: "Cannot delete player because they're active in a team" });
+      return res.status(400).send({ error: "Cannot delete player because they're active in a team", result: null });
     }
     const deletedPlayer = await Player.findByIdAndDelete(req.params.id);
     if (!deletedPlayer) {
-      return res.status(404).send({ ok: false, result: "Player not found" });
+      return res.status(404).send({ error: "Player not found", result: null });
     }
-    res.status(200).send({ ok: true, result: deletedPlayer });
+    res.status(200).send({ error: null, result: deletedPlayer });
   } catch (err) {
-    res.status(500).send({ ok: false, result: `Internal server error: ${err.message}` });
+    res.status(500).send({ error: `Internal server error: ${err.message}`, result: null });
   }
 });
 
