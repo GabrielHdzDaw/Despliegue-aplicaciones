@@ -5,6 +5,11 @@ import { Match } from "../models/match.js";
 
 const router = e.Router();
 
+router.use((req, res, next) =>{
+  console.log("Petition from: ", req.ip, "to Teams");
+  next();
+})
+
 // Obtain all teams
 router.get("/", async (req, res) => {
   try {

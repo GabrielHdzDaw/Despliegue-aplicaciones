@@ -4,6 +4,9 @@ import playersRouter from "./routes/players.js";
 import teamsRouter from "./routes/teams.js";
 import matchesRouter from "./routes/matches.js";
 import teapotRouter from "./routes/teapot.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 mongoose
   .connect("mongodb://localhost:27017/basketleaguemanager")
@@ -23,7 +26,8 @@ app.use("/teams", teamsRouter);
 app.use("/matches", matchesRouter);
 app.use("/teapot", teapotRouter);
 
-const PORT = 8080;
+const PORT = process.env.PORT;
+
 app.listen(PORT, () => {
   console.log(`Listening on http://localhost:${PORT}`);
 });
