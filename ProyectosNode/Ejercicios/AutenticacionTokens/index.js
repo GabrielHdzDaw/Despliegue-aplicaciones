@@ -16,7 +16,7 @@ const secreto = "secretoNode";
 // Base de datos simulada de usuarios registrados
 const usuarios = [
     { usuario: 'nacho', password: '12345'},
-    { usuario: 'pepe', password: 'pepe111'}
+    
 ];
 
 // Función que genera un token JWT para un usuario autenticado
