@@ -2,13 +2,14 @@ import e from "express";
 import { Team } from "../models/team.js";
 import { Player } from "../models/player.js";
 import { Match } from "../models/match.js";
+import { authMiddleware } from "../auth/auth.js";
 
 const router = e.Router();
 
-router.use((req, res, next) =>{
+router.use((req, res, next) => {
   console.log("Petition from: ", req.ip, "to Teams");
   next();
-})
+});
 
 // Obtain all teams
 router.get("/", async (req, res) => {
@@ -37,7 +38,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // Add a team
-router.post("/", async (req, res) => {
+router.post("/", authMiddleware("admin"), async (req, res) => {
   try {
     const { name } = req.body;
     if (!name) {
@@ -57,7 +58,7 @@ router.post("/", async (req, res) => {
 });
 
 // Add a player to roster
-router.post("/:id/roster", async (req, res) => {
+router.post("/:id/roster", authMiddleware("admin", "manager"), async (req, res) => {
   try {
     const { player, joinDate, active } = req.body;
     if (!player || !joinDate || !active || active === undefined) {
@@ -90,7 +91,7 @@ router.post("/:id/roster", async (req, res) => {
 });
 
 //Deactivate a player
-router.delete("/:id/roster/:playerId", async (req, res) => {
+router.delete("/:id/roster/:playerId", authMiddleware("admin", "manager"), async (req, res) => {
   try {
     const existingPlayer = await Player.findById(req.params.playerId);
     if (!existingPlayer) {
@@ -118,7 +119,7 @@ router.delete("/:id/roster/:playerId", async (req, res) => {
 });
 
 //Delete a team
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", authMiddleware("admin"), async (req, res) => {
   try {
     const appearsAtMatchAsHomeTeam = await Match.findOne({ homeTeam: req.params.id });
     const appearsAtMatchAsAwayTeam = await Match.findOne({ awayTeam: req.params.id });

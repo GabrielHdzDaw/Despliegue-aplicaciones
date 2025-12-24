@@ -6,6 +6,7 @@ import { Player } from "../models/player.js";
 import { Team } from "../models/team.js";
 import { Tournament } from "../models/tournament.js";
 import { Match } from "../models/match.js";
+import { User } from "../models/user.js";
 
 const MONGO_URI = "mongodb://localhost:27017/basketleaguemanager";
 
@@ -13,7 +14,22 @@ async function main() {
   await mongoose.connect(MONGO_URI);
 
   // Limpieza
-  await Promise.all([Match.deleteMany({}), Tournament.deleteMany({}), Team.deleteMany({}), Player.deleteMany({})]);
+  await Promise.all([Match.deleteMany({}), Tournament.deleteMany({}), Team.deleteMany({}), Player.deleteMany({})], User.deleteMany({}));
+
+  // =================
+  // USERS
+  // =================
+
+  const usersData = [
+    { login: "admin", password: "1234567", role: "admin" },
+    { login: "user1", password: "1234567", role: "user" },
+    { login: "user2", password: "1234567", role: "user" },
+    { login: "manager1", password: "1234567", role: "manager" },
+    { login: "manager2", password: "1234567", role: "manager" },
+  ];
+
+  const users = await User.insertMany(usersData);
+  const U = Object.fromEntries(users.map((user) => [user.login, user]));
 
   // =================
   // PLAYERS
@@ -200,14 +216,7 @@ async function main() {
       year: 2025,
       season: "Autumn",
       organizer: "ACB",
-      teams: [
-        T["Real Madrid"]._id,
-        T["FC Barcelona"]._id,
-        T["Baskonia"]._id,
-        T["Unicaja"]._id,
-        T["Valencia Basket"]._id,
-        T["Lenovo Tenerife"]._id,
-      ],
+      teams: [T["Real Madrid"]._id, T["FC Barcelona"]._id, T["Baskonia"]._id, T["Unicaja"]._id, T["Valencia Basket"]._id, T["Lenovo Tenerife"]._id],
     },
     {
       title: "EuroLeague",
@@ -237,13 +246,7 @@ async function main() {
       year: 2025,
       season: "Autumn",
       organizer: "Euroleague Basketball",
-      teams: [
-        T["Valencia Basket"]._id,
-        T["Unicaja"]._id,
-        T["Lenovo Tenerife"]._id,
-        T["ALBA Berlin"]._id,
-        T["Bayern Munich"]._id,
-      ],
+      teams: [T["Valencia Basket"]._id, T["Unicaja"]._id, T["Lenovo Tenerife"]._id, T["ALBA Berlin"]._id, T["Bayern Munich"]._id],
     },
   ]);
   const TO = Object.fromEntries(tournaments.map((t) => [t.title, t]));

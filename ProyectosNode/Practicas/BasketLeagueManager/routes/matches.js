@@ -1,15 +1,14 @@
 import e from "express";
-import mongoose from "mongoose";
 import { Match } from "../models/match.js";
 import { Team } from "../models/team.js";
+import { authMiddleware } from "../auth/auth.js";
 
 const router = e.Router();
 
-router.use((req, res, next) =>{
+router.use((req, res, next) => {
   console.log("Petition from: ", req.ip, "to Matches");
   next();
-})
-
+});
 
 // Get matches
 router.get("/", async (req, res) => {
@@ -46,7 +45,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // Add a match
-router.post("/", async (req, res) => {
+router.post("/", authMiddleware("admin", "manager"), async (req, res) => {
   try {
     const { tournament, date, stage, homeTeam, awayTeam, homeScore, awayScore } = req.body;
     if (!tournament || !date || !stage || !homeTeam || !awayTeam || !homeScore || !awayScore) {
@@ -82,7 +81,7 @@ router.post("/", async (req, res) => {
 });
 
 // Delete a match
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", authMiddleware("admin", "manager"), async (req, res) => {
   try {
     const match = await Match.findByIdAndDelete(req.params.id);
     if (!match) {

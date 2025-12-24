@@ -1,6 +1,7 @@
 import e from "express";
 import { Player } from "../models/player.js";
 import { Team } from "../models/team.js";
+import { authMiddleware } from "../auth/auth.js";
 
 const router = e.Router();
 
@@ -53,7 +54,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // Add a player
-router.post("/", async (req, res) => {
+router.post("/", authMiddleware("admin"), async (req, res) => {
   try {
     const { name, nickname, country, birthDate, role } = req.body;
     if (!name || !nickname || !country || !birthDate || !role) {
@@ -73,7 +74,7 @@ router.post("/", async (req, res) => {
 });
 
 // Update a player by ID
-router.put("/:id", async (req, res) => {
+router.put("/:id", authMiddleware("admin"), async (req, res) => {
   try {
     const player = await Player.findById(req.params.id);
     if (!player) {
@@ -96,7 +97,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // Delete a player by ID
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", authMiddleware("admin"), async (req, res) => {
   try {
     const activeInTeam = await Team.findOne({ "roster.player": req.params.id, "roster.active": true });
     if (activeInTeam) {
