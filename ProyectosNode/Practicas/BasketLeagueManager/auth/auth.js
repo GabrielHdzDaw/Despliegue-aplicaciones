@@ -32,7 +32,7 @@ export function authMiddleware(...requiredRoles) {
         return res.status(403).send({ error: "Not authorized", result: null });
       }
     } else {
-      return res.status(401).send({ error: "Login incorrecto", result: null });
+      return res.status(401).send({ error: "Incorrect login", result: null });
     }
   };
 }

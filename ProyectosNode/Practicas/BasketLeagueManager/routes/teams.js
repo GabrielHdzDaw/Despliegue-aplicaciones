@@ -12,7 +12,7 @@ router.use((req, res, next) => {
 });
 
 // Obtain all teams
-router.get("/", async (req, res) => {
+router.get("/", authMiddleware(), async (req, res) => {
   try {
     const teams = await Team.find();
     if (!teams) {
@@ -25,7 +25,7 @@ router.get("/", async (req, res) => {
 });
 
 // Obtain team info by ID
-router.get("/:id", async (req, res) => {
+router.get("/:id", authMiddleware(), async (req, res) => {
   try {
     const team = await Team.findById(req.params.id);
     if (!team) {

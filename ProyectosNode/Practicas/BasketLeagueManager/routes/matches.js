@@ -11,7 +11,7 @@ router.use((req, res, next) => {
 });
 
 // Get matches
-router.get("/", async (req, res) => {
+router.get("/", authMiddleware(), async (req, res) => {
   try {
     const matches = await Match.find()
       .populate("homeTeam", "name")
@@ -28,7 +28,7 @@ router.get("/", async (req, res) => {
 });
 
 // Obtain match info by ID
-router.get("/:id", async (req, res) => {
+router.get("/:id", authMiddleware(), async (req, res) => {
   try {
     const match = await Match.findById(req.params.id)
       .populate("homeTeam", "name")

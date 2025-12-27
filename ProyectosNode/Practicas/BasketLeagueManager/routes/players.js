@@ -12,7 +12,7 @@ router.use((req, res, next) =>{
 
 
 // Obtain all players
-router.get("/", async (req, res) => {
+router.get("/", authMiddleware(), async (req, res) => {
   try {
     const players = await Player.find();
     if (!players) {
@@ -25,7 +25,7 @@ router.get("/", async (req, res) => {
 });
 
 // Obtain player by name
-router.get("/find", async (req, res) => {
+router.get("/find", authMiddleware(), async (req, res) => {
   try {
     if (!req.query.name) {
       return res.status(400).send({ error: "Missing search parameter: name", result: null });
@@ -41,7 +41,7 @@ router.get("/find", async (req, res) => {
 });
 
 // Obtain player info by ID
-router.get("/:id", async (req, res) => {
+router.get("/:id", authMiddleware(), async (req, res) => {
   try {
     const player = await Player.findById(req.params.id);
     if (!player) {
